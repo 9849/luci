@@ -330,7 +330,7 @@ function init(cursor)
 			if i.family == "packet" then
 				_interfaces[name].flags   = i.flags
 				_interfaces[name].stats   = i.data
-				_interfaces[name].macaddr = i.addr
+				_interfaces[name].macaddr = ipc.checkmac(i.addr)
 			elseif i.family == "inet" then
 				_interfaces[name].ipaddrs[#_interfaces[name].ipaddrs+1] = ipc.IPv4(i.addr, i.netmask)
 			elseif i.family == "inet6" then
@@ -543,6 +543,9 @@ end
 function del_network(self, n)
 	local r = _uci:delete("network", n)
 	if r then
+		_uci:delete_all("luci", "ifstate",
+			function(s) return (s.interface == n) end)
+
 		_uci:delete_all("network", "alias",
 			function(s) return (s.interface == n) end)
 
@@ -998,7 +1001,15 @@ function protocol.ip6addrs(self)
 
 	if type(addrs) == "table" then
 		for n, addr in ipairs(addrs) do
-			rv[#rv+1] = "%s1/%d" %{ addr.address, addr.mask }
+			if type(addr["local-address"]) == "table" and
+			   type(addr["local-address"].mask) == "number" and
+			   type(addr["local-address"].address) == "string"
+			then
+				rv[#rv+1] = "%s/%d" %{
+					addr["local-address"].address,
+					addr["local-address"].mask
+				}
+			end
 		end
 	end
 
@@ -1222,8 +1233,7 @@ function interface.name(self)
 end
 
 function interface.mac(self)
-	local mac = self:_ubus("macaddr")
-	return mac and mac:upper()
+	return ipc.checkmac(self:_ubus("macaddr"))
 end
 
 function interface.ipaddrs(self)

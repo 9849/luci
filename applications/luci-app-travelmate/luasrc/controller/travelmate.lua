@@ -3,7 +3,6 @@
 
 module("luci.controller.travelmate", package.seeall)
 
-local fs    = require("nixio.fs")
 local util  = require("luci.util")
 local i18n  = require("luci.i18n")
 local templ = require("luci.template")
@@ -22,6 +21,7 @@ function index()
 	entry({"admin", "services", "travelmate", "advanced", "cfg_network"}, cbi("travelmate/cfg_network_tab"), _("Edit Network Configuration"), 130).leaf = true
 	entry({"admin", "services", "travelmate", "advanced", "cfg_firewall"}, cbi("travelmate/cfg_firewall_tab"), _("Edit Firewall Configuration"), 140).leaf = true
 
+	entry({"admin", "services", "travelmate", "apqr"}, template("travelmate/ap_qr")).leaf = true
 	entry({"admin", "services", "travelmate", "wifiscan"}, template("travelmate/wifi_scan")).leaf = true
 	entry({"admin", "services", "travelmate", "wifiadd"}, cbi("travelmate/wifi_add", {hideresetbtn=true, hidesavebtn=true})).leaf = true
 	entry({"admin", "services", "travelmate", "wifiedit"}, cbi("travelmate/wifi_edit", {hideresetbtn=true, hidesavebtn=true})).leaf = true
@@ -33,7 +33,7 @@ function logread()
 	local logfile
 
 	if nixio.fs.access("/var/log/messages") then
-		logfile = util.trim(util.exec("cat /var/log/messages | grep 'travelmate-'"))
+		logfile = util.trim(util.exec("grep -F 'travelmate-' /var/log/messages"))
 	else
 		logfile = util.trim(util.exec("logread -e 'travelmate-'"))
 	end

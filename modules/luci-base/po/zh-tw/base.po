@@ -3487,9 +3487,9 @@ msgstr "使用路由表"
 
 msgid ""
 "Use the <em>Add</em> Button to add a new lease entry. The <em>MAC-Address</"
-"em> indentifies the host, the <em>IPv4-Address</em> specifies to the fixed "
-"address to use and the <em>Hostname</em> is assigned as symbolic name to the "
-"requesting host. The optional <em>Lease time</em> can be used to set non-"
+"em> indentifies the host, the <em>IPv4-Address</em> specifies the fixed "
+"address to use, and the <em>Hostname</em> is assigned as a symbolic name to "
+"the requesting host. The optional <em>Lease time</em> can be used to set non-"
 "standard host-specific lease time, e.g. 12h, 3d or infinite."
 msgstr ""
 "使用 <em>Add</em> 鍵以便新增一個租賃的項目. 這個 <em>MAC-Address</em> 標誌這"
@@ -3786,6 +3786,9 @@ msgid "open"
 msgstr "打開"
 
 msgid "overlay"
+msgstr ""
+
+msgid "random"
 msgstr ""
 
 msgid "relay mode"

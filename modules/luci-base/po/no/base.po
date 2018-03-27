@@ -3562,9 +3562,9 @@ msgstr "Bruk rutingtabellen"
 
 msgid ""
 "Use the <em>Add</em> Button to add a new lease entry. The <em>MAC-Address</"
-"em> indentifies the host, the <em>IPv4-Address</em> specifies to the fixed "
-"address to use and the <em>Hostname</em> is assigned as symbolic name to the "
-"requesting host. The optional <em>Lease time</em> can be used to set non-"
+"em> indentifies the host, the <em>IPv4-Address</em> specifies the fixed "
+"address to use, and the <em>Hostname</em> is assigned as a symbolic name to "
+"the requesting host. The optional <em>Lease time</em> can be used to set non-"
 "standard host-specific lease time, e.g. 12h, 3d or infinite."
 msgstr ""
 "Bruk <em>Legg til</em> knappen får å legge til en leieavtale. <em>MAC-"
@@ -3866,6 +3866,9 @@ msgid "open"
 msgstr "åpen"
 
 msgid "overlay"
+msgstr ""
+
+msgid "random"
 msgstr ""
 
 msgid "relay mode"
